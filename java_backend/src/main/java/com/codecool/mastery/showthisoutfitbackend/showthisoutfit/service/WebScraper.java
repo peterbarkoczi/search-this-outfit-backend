@@ -86,11 +86,16 @@ public class WebScraper {
             Document secondDoc = Jsoup.connect(fullProductLink.substring(0, fullProductLink.indexOf("?"))).get();
             Element imageListContainer = secondDoc.getElementById("carousel-thumb");
             Elements images = imageListContainer.select("li");
+            StringBuilder imagesLinks = new StringBuilder();
             for (Element image : images) {
-                System.out.println(image.selectFirst("a").attr("rel").lastIndexOf("largeimage: '"));
+                int largeImgLinkStartIndex = image.selectFirst("a").attr("rel").lastIndexOf("https");
+                int largeImgLinkEndIndex = image.selectFirst("a").attr("rel").lastIndexOf("'}");
+
+                imagesLinks.append(" ");
+                imagesLinks.append(image.selectFirst("a").attr("rel").substring(largeImgLinkStartIndex, largeImgLinkEndIndex));
             }
 
-            System.out.println(imageListContainer);
+            product.put("images", imagesLinks.toString().trim());
 
             productList.add(product);
             break;
@@ -101,13 +106,13 @@ public class WebScraper {
 
     private String getGenderByGenderHUN(String genderHUN) {
         switch (genderHUN) {
-            case "Női":
+            case "női":
                 return "Women";
-            case "Férfi":
+            case "férfi":
                 return "Man";
-            case "Fiú":
+            case "fiú":
                 return "Boy";
-            case "Lány":
+            case "lány":
                 return "Girl";
             default:
                 return "Unisex";
