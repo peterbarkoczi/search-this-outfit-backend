@@ -8,6 +8,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +28,8 @@ public class WebScraper {
     public List<List<Map<String,String>>> startWebScraping() throws IOException, InterruptedException {
         String[] mainTags = {WOMEN_ALL_CLOTHS, MEN_ALL_CLOTHS, GIRL_ALL_CLOTHS, BOY_ALL_CLOTHS};
         List<List<Map<String,String>>> all = new ArrayList<>();
+
+
         all.add(getPageAllProduct(Jsoup.connect(WOMEN_ALL_CLOTHS).get()));
 
 
@@ -59,29 +62,70 @@ public class WebScraper {
     }
 
     private List<Map<String, String>> getPageAllProduct(Document doc) throws IOException {
-        String genderHUN = doc.selectFirst(".active").text();
-        String genderENG = getGenderByGenderHUN(genderHUN);
+        FileWriter writer = new FileWriter("test.csv");
+
+        writer.append("productId");
+        writer.append(",");
+        writer.append("similarProductsLink");
+        writer.append(",");
+        writer.append("productName");
+        writer.append(",");
+        writer.append("priceHUF");
+        writer.append(",");
+        writer.append("priceEUR");
+        writer.append(",");
+        writer.append("brand");
+        writer.append(",");
+        writer.append("classificationENG");
+        writer.append(",");
+        writer.append("subclassificationENG");
+        writer.append(",");
+        writer.append("stockStatusENG");
+        writer.append(",");
+        writer.append("images");
+        writer.append(",");
+        writer.append("color");
+        writer.append(",");
+        writer.append("genderHUN");
+        writer.append(",");
+        writer.append("classificationHUN");
+        writer.append(",");
+        writer.append("subclassificationHUN");
+        writer.append(",");
+        writer.append("genderENG");
+        writer.append(",");
+        writer.append("productDetails");
+        writer.append("\n");
+
 
         Element productsPage = doc.getElementById("products-listing");
         Elements productsLinkList = productsPage.select("ul li");
         List<Map<String, String>> productList = new ArrayList<>();
 
         for (Element productLink : productsLinkList) {
-            Map<String, String> product = new HashMap<>();
 
-            product.put("genderHUN", genderHUN);
-            product.put("genderENG", genderENG);
-            product.put("productId", productLink.attributes().dataset().get("vrecom-productid"));
-            product.put("similarProductsLink", productLink.attributes().dataset().get("vrecom-url"));
+
+            writer.append(productLink.attributes().dataset().get("vrecom-productid"));
+            writer.append(",");
+            writer.append(productLink.attributes().dataset().get("vrecom-url"));
+            writer.append(",");
             String fullProductLink = productLink.getElementsByTag("a").attr("href");
-            product.put("productMainPageLink", fullProductLink.substring(0, fullProductLink.indexOf("?")));
-            product.put("title", productLink.getElementsByTag("a").attr("title"));
-            product.put("priceHUF", productLink.getElementsByTag("a").attr("data-gtm-price"));
-            product.put("priceEUR", productLink.getElementsByTag("a").attr("data-gtm-price-eur"));
-            product.put("brand", productLink.getElementsByTag("a").attr("data-gtm-brand-name"));
-            product.put("classificationENG", productLink.getElementsByTag("a").attr("data-gtm-classification"));
-            product.put("subclassificationENG", productLink.getElementsByTag("a").attr("data-gtm-subclassification"));
-            product.put("stockStatusENG", productLink.getElementsByTag("a").attr("data-gtm-status"));
+            writer.append(fullProductLink.substring(0, fullProductLink.indexOf("?")));
+            writer.append(",");
+            writer.append(productLink.getElementsByTag("a").attr("title"));
+            writer.append(",");
+            writer.append(productLink.getElementsByTag("a").attr("data-gtm-price"));
+            writer.append(",");
+            writer.append(productLink.getElementsByTag("a").attr("data-gtm-price-eur"));
+            writer.append(",");
+            writer.append(productLink.getElementsByTag("a").attr("data-gtm-brand-name"));
+            writer.append(",");
+            writer.append(productLink.getElementsByTag("a").attr("data-gtm-classification"));
+            writer.append(",");
+            writer.append(productLink.getElementsByTag("a").attr("data-gtm-subclassification"));
+            writer.append(",");
+            writer.append(productLink.getElementsByTag("a").attr("data-gtm-status"));
+            writer.append(",");
 
             Document secondDoc = Jsoup.connect(fullProductLink.substring(0, fullProductLink.indexOf("?"))).get();
             Element imageListContainer = secondDoc.getElementById("carousel-thumb");
@@ -94,28 +138,61 @@ public class WebScraper {
                 imagesLinks.append(" ");
                 imagesLinks.append(image.selectFirst("a").attr("rel").substring(largeImgLinkStartIndex, largeImgLinkEndIndex));
             }
+            writer.append(imagesLinks.toString().trim());
+            writer.append(",");
 
-            product.put("images", imagesLinks.toString().trim());
+            String pInfo = secondDoc.getElementById("product_details").text();
+            int startColor = pInfo.lastIndexOf("Szín: ") + 6;
+            String startColorName = pInfo.substring(startColor).replaceFirst(" ", "???");
+            String color = startColorName.substring(0, startColorName.lastIndexOf("???")).trim();
+            writer.append(color);
+            writer.append(",");
 
-            productList.add(product);
+            Elements bar = secondDoc.getElementsByAttribute("itemprop").select("span a span");
+            String[] string = {"gederHUN", "class", "subclass", "brandHUn"};
+
+            String hun = "";
+
+            int i = 0;
+            for (Element b : bar) {
+                if (i == 0) {
+                    hun = b.text();
+                }
+                if (i < 3) {
+                    writer.append(b.text());
+                    writer.append(",");
+                }
+                i++;
+            }
+
+            String genderENG = getGenderByGenderHUN(hun);
+            writer.append(genderENG);
+            writer.append(",");
+
+            writer.append(secondDoc.getElementById("product_details").text());
+
+            writer.append("\n");
+            writer.flush();
+            writer.close();
             break;
         }
+
 
         return productList;
     }
 
     private String getGenderByGenderHUN(String genderHUN) {
         switch (genderHUN) {
-            case "női":
-                return "Women";
-            case "férfi":
-                return "Man";
-            case "fiú":
-                return "Boy";
-            case "lány":
-                return "Girl";
+            case "NŐI":
+                return "WOMEN";
+            case "FÉRFI":
+                return "MAN";
+            case "FIÚ":
+                return "BOY";
+            case "LÁNY":
+                return "GIRL";
             default:
-                return "Unisex";
+                return "UNISEX";
         }
     }
 
