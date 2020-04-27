@@ -24,8 +24,24 @@ public class WebScraper {
     private static final String GIRL_ALL_CLOTHS = FASHIONDAYS_MAIN_PAGE + "g/lány-/ruházat";
     private static final String BOY_ALL_CLOTHS = FASHIONDAYS_MAIN_PAGE + "g/fiú-/ruházat";
 
-    public void startWebScraping() {
+    public List<List<Map<String,String>>> startWebScraping() throws IOException, InterruptedException {
         String[] mainTags = {WOMEN_ALL_CLOTHS, MEN_ALL_CLOTHS, GIRL_ALL_CLOTHS, BOY_ALL_CLOTHS};
+        List<List<Map<String,String>>> all = new ArrayList<>();
+        all.add(getPageAllProduct(Jsoup.connect(WOMEN_ALL_CLOTHS).get()));
+
+
+        /*
+        for (String mainTag : mainTags) {
+            for (int j = 1; j < getAllClothPageNumberByTag(Jsoup.connect(mainTag).get()); j++) {
+                all.add(getPageAllProduct(Jsoup.connect(mainTag + "?page=" + j).get()));
+                System.out.println(j);
+                Thread.sleep(10000);
+            }
+        }
+
+         */
+
+        return all;
     }
 
     private int getAllClothPageNumberByTag(Document doc) {
@@ -33,16 +49,16 @@ public class WebScraper {
                 .selectFirst(".pagination")
                 .select("li").size();
 
-        return Integer.parseInt(doc
+        int prosuctsPageNumber = Integer.parseInt(doc
                 .selectFirst(".pagination")
                 .select("li")
                 .get(pageNavigationBarLength - 2)
                 .selectFirst("a")
                 .attr("data-page"));
+        return Math.min(prosuctsPageNumber, 10);
     }
 
-    public List<Map<String, String>> getPageAllProduct() throws IOException {
-        Document doc = Jsoup.connect(BOY_ALL_CLOTHS).get();
+    private List<Map<String, String>> getPageAllProduct(Document doc) throws IOException {
         String genderHUN = doc.selectFirst(".active").text();
         String genderENG = getGenderByGenderHUN(genderHUN);
 
@@ -67,7 +83,17 @@ public class WebScraper {
             product.put("subclassificationENG", productLink.getElementsByTag("a").attr("data-gtm-subclassification"));
             product.put("stockStatusENG", productLink.getElementsByTag("a").attr("data-gtm-status"));
 
+            Document secondDoc = Jsoup.connect(fullProductLink.substring(0, fullProductLink.indexOf("?"))).get();
+            Element imageListContainer = secondDoc.getElementById("carousel-thumb");
+            Elements images = imageListContainer.select("li");
+            for (Element image : images) {
+                System.out.println(image.selectFirst("a").attr("rel").lastIndexOf("largeimage: '"));
+            }
+
+            System.out.println(imageListContainer);
+
             productList.add(product);
+            break;
         }
 
         return productList;

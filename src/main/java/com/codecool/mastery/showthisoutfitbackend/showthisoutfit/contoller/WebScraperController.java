@@ -17,8 +17,8 @@ public class WebScraperController {
 
 
     @GetMapping("/")
-    public List<Map<String, String>> result() throws IOException {
-        return webScraper.getPageAllProduct();
+    public List<List<Map<String,String>>> result() throws IOException, InterruptedException {
+        return webScraper.startWebScraping();
     }
 
 }
