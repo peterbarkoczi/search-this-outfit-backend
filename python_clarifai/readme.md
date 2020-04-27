@@ -9,5 +9,5 @@ I.
 II.	
 	Set an API_KEY environment variable
 
-We use: 
+We use clarifai: 
 ![clarifai](Clarifai_Logo_White.svg)
