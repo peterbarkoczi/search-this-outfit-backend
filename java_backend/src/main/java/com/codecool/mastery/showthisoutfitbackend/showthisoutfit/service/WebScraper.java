@@ -74,7 +74,7 @@ public class WebScraper {
         writer.close();
 
         for (int j = 1; j < 3; j++) {
-            all.add(getPageAllProduct(Jsoup.connect("https://www.fashiondays.hu/g/n%C5%91i-/ruh%C3%A1zat-p%C3%B3l%C3%B3?page=" + j).get()));
+            all.add(getPageAllProduct(Jsoup.connect("https://www.fashiondays.hu/g/n%C5%91i-/ruh%C3%A1zat-farmernadr%C3%A1g?page=" + j).get()));
             System.out.println(j);
             Thread.sleep(30000);
         }
@@ -110,15 +110,15 @@ public class WebScraper {
         for (Element productLink : productsLinkList) {
             writer.append("women");
             writer.append(",");
-            writer.append("top");
+            writer.append("pants");
             writer.append(",");
-            writer.append("t-shirt");
+            writer.append("jeans");
             writer.append(",");
             writer.append("női");
             writer.append(",");
-            writer.append("felső");
+            writer.append("nadrág");
             writer.append(",");
-            writer.append("póló");
+            writer.append("farmernadrág");
             writer.append(",");
 
             writer.append(productLink.attributes().dataset().get("vrecom-productid"));
@@ -190,8 +190,8 @@ public class WebScraper {
             String productDetails = secondDoc.getElementById("product_details").text().trim();
             int catalogId = productDetails.lastIndexOf("Termékszám") + 10;
             writer.append(productDetails.substring(catalogId).trim());
-
-            writer.append(productDetails);
+            writer.append(",");
+            writer.append(productDetails.replaceAll(",", "\\$"));
 
             writer.append("\n");
         }

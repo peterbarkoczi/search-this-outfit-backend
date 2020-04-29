@@ -8,7 +8,7 @@ model = Model(app.api, model_id='72c523807f93e18b431676fb9a58e6ad')
 
 def api_get_label_information(image_byte_array):
     return model.predict(
-        [Image(base64=image_byte_array)])
+        [Image(url=image_byte_array)])
 
 
 def get_main_info_from_labeler(image_byte_array):
