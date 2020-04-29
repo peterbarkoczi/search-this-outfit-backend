@@ -30,19 +30,54 @@ public class WebScraper {
         List<List<Map<String,String>>> all = new ArrayList<>();
 
 
-        all.add(getPageAllProduct(Jsoup.connect(WOMEN_ALL_CLOTHS).get()));
+        //all.add(getPageAllProduct(Jsoup.connect(WOMEN_ALL_CLOTHS).get()));
 
+        FileWriter writer = new FileWriter("test.csv");
+        writer.append("genderENG");
+        writer.append(",");
+        writer.append("classificationENG");
+        writer.append(",");
+        writer.append("subclassificationENG");
+        writer.append(",");
+        writer.append("genderHUN");
+        writer.append(",");
+        writer.append("classificationHUN");
+        writer.append(",");
+        writer.append("subclassificationHUN");
 
-        /*
-        for (String mainTag : mainTags) {
-            for (int j = 1; j < getAllClothPageNumberByTag(Jsoup.connect(mainTag).get()); j++) {
-                all.add(getPageAllProduct(Jsoup.connect(mainTag + "?page=" + j).get()));
-                System.out.println(j);
-                Thread.sleep(10000);
-            }
+        writer.append(",");
+        writer.append("productId");
+        writer.append(",");
+        writer.append("similarProductsLink");
+        writer.append(",");
+        writer.append("mainProductsLink");
+        writer.append(",");
+        writer.append("productName");
+        writer.append(",");
+        writer.append("priceHUF");
+        writer.append(",");
+        writer.append("priceEUR");
+        writer.append(",");
+        writer.append("brand");
+        writer.append(",");
+        writer.append("stockStatusENG");
+        writer.append(",");
+        writer.append("images");
+        writer.append(",");
+        writer.append("color");
+        writer.append(",");
+        writer.append("catalogId");
+        writer.append("\n");
+        writer.flush();
+        writer.close();
+
+        for (int j = 1; j < 3; j++) {
+            all.add(getPageAllProduct(Jsoup.connect("https://www.fashiondays.hu/g/n%C5%91i-/ruh%C3%A1zat-p%C3%B3l%C3%B3?page=" + j).get()));
+            System.out.println(j);
+            Thread.sleep(30000);
         }
+        System.out.println("Finished");
 
-         */
 
         return all;
     }
@@ -62,40 +97,8 @@ public class WebScraper {
     }
 
     private List<Map<String, String>> getPageAllProduct(Document doc) throws IOException {
-        FileWriter writer = new FileWriter("test.csv");
+        FileWriter writer = new FileWriter("test.csv", true);
 
-        writer.append("productId");
-        writer.append(",");
-        writer.append("similarProductsLink");
-        writer.append(",");
-        writer.append("productName");
-        writer.append(",");
-        writer.append("priceHUF");
-        writer.append(",");
-        writer.append("priceEUR");
-        writer.append(",");
-        writer.append("brand");
-        writer.append(",");
-        writer.append("classificationENG");
-        writer.append(",");
-        writer.append("subclassificationENG");
-        writer.append(",");
-        writer.append("stockStatusENG");
-        writer.append(",");
-        writer.append("images");
-        writer.append(",");
-        writer.append("color");
-        writer.append(",");
-        writer.append("genderHUN");
-        writer.append(",");
-        writer.append("classificationHUN");
-        writer.append(",");
-        writer.append("subclassificationHUN");
-        writer.append(",");
-        writer.append("genderENG");
-        writer.append(",");
-        writer.append("productDetails");
-        writer.append("\n");
 
 
         Element productsPage = doc.getElementById("products-listing");
@@ -103,7 +106,18 @@ public class WebScraper {
         List<Map<String, String>> productList = new ArrayList<>();
 
         for (Element productLink : productsLinkList) {
-
+            writer.append("women");
+            writer.append(",");
+            writer.append("top");
+            writer.append(",");
+            writer.append("t-shirt");
+            writer.append(",");
+            writer.append("női");
+            writer.append(",");
+            writer.append("felső");
+            writer.append(",");
+            writer.append("póló");
+            writer.append(",");
 
             writer.append(productLink.attributes().dataset().get("vrecom-productid"));
             writer.append(",");
@@ -119,10 +133,6 @@ public class WebScraper {
             writer.append(productLink.getElementsByTag("a").attr("data-gtm-price-eur"));
             writer.append(",");
             writer.append(productLink.getElementsByTag("a").attr("data-gtm-brand-name"));
-            writer.append(",");
-            writer.append(productLink.getElementsByTag("a").attr("data-gtm-classification"));
-            writer.append(",");
-            writer.append(productLink.getElementsByTag("a").attr("data-gtm-subclassification"));
             writer.append(",");
             writer.append(productLink.getElementsByTag("a").attr("data-gtm-status"));
             writer.append(",");
@@ -143,12 +153,17 @@ public class WebScraper {
 
             String pInfo = secondDoc.getElementById("product_details").text();
             int startColor = pInfo.lastIndexOf("Szín: ") + 6;
-            String startColorName = pInfo.substring(startColor).replaceFirst(" ", "???");
-            String color = startColorName.substring(0, startColorName.lastIndexOf("???")).trim();
+            String startColorName = pInfo.substring(startColor);
+            int endColor = startColorName.lastIndexOf("Minta");
+            if (endColor == -1) {
+                endColor = 0;
+            }
+            String color = startColorName.substring(0, endColor).replaceAll(", ", "?").trim();
             writer.append(color);
             writer.append(",");
-
+            /*
             Elements bar = secondDoc.getElementsByAttribute("itemprop").select("span a span");
+
             String[] string = {"gederHUN", "class", "subclass", "brandHUn"};
 
             String hun = "";
@@ -156,10 +171,10 @@ public class WebScraper {
             int i = 0;
             for (Element b : bar) {
                 if (i == 0) {
-                    hun = b.text();
+                    hun = b.text().replaceAll("\n", " ").trim();
                 }
                 if (i < 3) {
-                    writer.append(b.text());
+                    writer.append(b.text().replaceAll("\n", "").replaceAll(",", "").trim());
                     writer.append(",");
                 }
                 i++;
@@ -169,15 +184,16 @@ public class WebScraper {
             writer.append(genderENG);
             writer.append(",");
 
-            writer.append(secondDoc.getElementById("product_details").text());
+             */
+            String productDetails = secondDoc.getElementById("product_details").text().trim();
+            int catalogId = productDetails.lastIndexOf("Termékszám") + 10;
+            writer.append(productDetails.substring(catalogId).trim());
 
             writer.append("\n");
-            writer.flush();
-            writer.close();
-            break;
         }
 
-
+        writer.flush();
+        writer.close();
         return productList;
     }
 
