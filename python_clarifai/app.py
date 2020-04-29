@@ -1,8 +1,10 @@
 from flask import Flask
 from util import json_response
 import clarifai_api_call
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route('/picture/upload', methods=['POST'])
