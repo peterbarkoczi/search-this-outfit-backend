@@ -67,6 +67,8 @@ public class WebScraper {
         writer.append("color");
         writer.append(",");
         writer.append("catalogId");
+        writer.append(",");
+        writer.append("productDetails");
         writer.append("\n");
         writer.flush();
         writer.close();
@@ -188,6 +190,8 @@ public class WebScraper {
             String productDetails = secondDoc.getElementById("product_details").text().trim();
             int catalogId = productDetails.lastIndexOf("Termékszám") + 10;
             writer.append(productDetails.substring(catalogId).trim());
+
+            writer.append(productDetails);
 
             writer.append("\n");
         }

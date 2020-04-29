@@ -23,7 +23,7 @@ public class WebScraperController {
         return webScraper.startWebScraping();
     }
 
-    @GetMapping("/")
+    @GetMapping("/labeler")
     public List<String> labelerResult() {
         return labeler.firstTry();
     }
