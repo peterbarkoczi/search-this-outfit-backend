@@ -1,7 +1,9 @@
 from flask import Flask, request
-from util import json_response
-import clarifai_api_call
+from python_clarifai import clarifai_api_call
+from python_clarifai.util import json_response
+
 from flask_cors import CORS
+
 
 app = Flask(__name__)
 CORS(app)
