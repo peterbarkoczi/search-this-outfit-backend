@@ -2,13 +2,12 @@ import os
 from clarifai.rest import ClarifaiApp
 from clarifai.rest import Image, Model
 
-app = ClarifaiApp(api_key=os.environ.get('API_KEY'))
+app = ClarifaiApp(api_key='7ae25c4275344908a46664907e0a35d4')
 model = Model(app.api, model_id='72c523807f93e18b431676fb9a58e6ad')
 
 
 def api_get_label_information(image_byte_array):
-    return model.predict(
-        [Image(url=image_byte_array)])
+    return model.predict([Image(file_obj=image_byte_array)])
 
 
 def get_main_info_from_labeler(image_byte_array):
