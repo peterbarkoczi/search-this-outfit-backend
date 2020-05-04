@@ -1,4 +1,4 @@
-package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.service;
+package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.util;
 
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
