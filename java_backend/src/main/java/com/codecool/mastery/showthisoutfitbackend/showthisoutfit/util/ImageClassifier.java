@@ -1,4 +1,4 @@
-package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.service;
+package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.util;
 
 import clarifai2.api.ClarifaiBuilder;
 import clarifai2.api.ClarifaiClient;
@@ -15,14 +15,14 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class Labeler {
+public class ImageClassifier {
     final ClarifaiClient client = new ClarifaiBuilder(System.getenv("API_KEY")).buildSync();
 
     public List<String> firstTry() {
 
         ConceptModel model = client.getDefaultModels().apparelModel();
         ClarifaiResponse<List<ClarifaiOutput<Prediction>>> response = client.predict(model.id())
-                .withInputs(ClarifaiInput.forImage("https://fdcdn.akamaized.net/m/780x1132/products/29809/29808732/images/res_d8c4aa6a7664a54f8ccbff0589cb2cee.jpg?s=Y9NyKhML4ahc"))
+                .withInputs(ClarifaiInput.forImage("https://fdcdn.akamaized.net/m/780x1132/products/28877/28876083/images/res_ad8d4af94df2802a04e1834ecc97b94b.jpg?s=lk1xvVHnp8uB"))
                 .withMinValue(0.35)
                 .withMaxConcepts(3)
                 .executeSync();
