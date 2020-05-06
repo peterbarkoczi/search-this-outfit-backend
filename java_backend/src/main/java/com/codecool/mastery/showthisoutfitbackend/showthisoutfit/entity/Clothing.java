@@ -34,12 +34,12 @@ public class Clothing {
     private String brand;
     private String stockStatusENG;
 
-    @Singular
+    @Builder.Default
     @OneToMany(mappedBy = "clothing",cascade = CascadeType.MERGE)
     @EqualsAndHashCode.Exclude
     private List<ImageLink> images = new LinkedList<>();
 
-    @Singular
+    @Builder.Default
     @OneToMany(mappedBy = "clothing",cascade = CascadeType.MERGE)
     @EqualsAndHashCode.Exclude
     private Set<Color> colors = new HashSet<>();
