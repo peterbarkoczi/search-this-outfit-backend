@@ -12,6 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
+@Data
 public class Clothing {
 
     @Id
@@ -45,5 +46,15 @@ public class Clothing {
 
     private String catalogId;
     private String productDetails;
+
+    public void addImage(ImageLink imageLink) {
+        imageLink.setClothing(this);
+        this.images.add(imageLink);
+    }
+
+    public void addColor(Color color) {
+        color.setClothing(this);
+        this.colors.add(color);
+    }
 
 }
