@@ -19,11 +19,14 @@ public class DatasetFileReaderTest {
         datasetFileReader = new DatasetFileReader();
     }
 
+    /*
     @Test
     public void emptyFilePath() {
         assertThatExceptionOfType(FileNotFoundException.class)
                 .isThrownBy(() -> datasetFileReader.readFile(" "));
     }
+
+     */
 
     @Test
     public void readLinesFromTestFileListWithoutHeader() throws FileNotFoundException {
