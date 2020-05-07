@@ -16,7 +16,7 @@ public class ColorRepositoryTest {
     private ColorRepository colorRepository;
 
     @Test
-    public void saveOneSimpler() {
+    public void saveOneSimple() {
         Color blue = Color.builder().color("blue").build();
 
         colorRepository.save(blue);
