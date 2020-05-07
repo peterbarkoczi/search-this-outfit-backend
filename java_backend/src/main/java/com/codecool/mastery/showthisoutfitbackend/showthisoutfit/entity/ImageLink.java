@@ -1,9 +1,6 @@
 package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class ImageLink {
 
     @Id
