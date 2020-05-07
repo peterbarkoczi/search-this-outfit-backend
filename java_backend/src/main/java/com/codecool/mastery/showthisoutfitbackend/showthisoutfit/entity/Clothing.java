@@ -27,7 +27,7 @@ public class Clothing {
     private String subclassificationHUN;
     private Long fashionDaysProductId;
     private String similarProductsLink;
-    private String mainProductsLink;
+    private String mainProductLink;
     private String fashionDaysProductName;
     private Long priceHUF;
     private Float priceEUR;
