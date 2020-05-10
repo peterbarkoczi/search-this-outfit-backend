@@ -1,14 +1,16 @@
 package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.service.util;
 
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.Label;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.inputs.Inputs;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.inputs.InputsData;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.inputs.InputsImage;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.inputs.InputsItem;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.outputs.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
+import java.util.*;
 
 @Component
 public class ClarifaiApiServiceUtil {
@@ -35,6 +37,31 @@ public class ClarifaiApiServiceUtil {
         inputs.setInputs(Collections.singletonList(inputsItem));
 
         return inputs;
+    }
+
+    public Set<Label> createLabelSetFromOutputs(Outputs outputs) {
+        Set<Label> labels = new HashSet<>();
+
+        List<OutputsItem> outputsItems = outputs.getOutputs();
+        for (OutputsItem item : outputsItems) {
+            OutputsData itemData = item.getData();
+            List<RegionsItem> regions = itemData.getRegions();
+            for (RegionsItem regionsItem : regions) {
+                RegionInfo regionInfo = regionsItem.getRegionInfo();
+                BoundingBox boundingBox = regionInfo.getBoundingBox();
+
+                OutputsData regionsItemData = regionsItem.getData();
+                List<ConceptsItem> concepts = regionsItemData.getConcepts();
+
+                List<String> itemNames = new LinkedList<>();
+                concepts.forEach(conceptsItem -> itemNames.add(conceptsItem.getName()));
+
+                Label label = new Label(itemNames, boundingBox);
+                labels.add(label);
+            }
+        }
+
+        return labels;
     }
 
 }
