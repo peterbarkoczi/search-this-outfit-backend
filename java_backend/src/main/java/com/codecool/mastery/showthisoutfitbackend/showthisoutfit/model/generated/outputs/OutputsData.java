@@ -3,7 +3,7 @@ package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generate
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Data{
+public class OutputsData {
 
 	@JsonProperty("regions")
 	private List<RegionsItem> regions;

@@ -1,7 +1,7 @@
 package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.service;
 
-import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.inputs.Data;
-import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.inputs.Image;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.inputs.InputsData;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.inputs.InputsImage;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.outputs.Outputs;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.inputs.Inputs;
 
@@ -20,7 +20,7 @@ public class ClarifaiApiService {
 
     private static final String CLARIFAI_API_URL = "https://api.clarifai.com/v2/models/72c523807f93e18b431676fb9a58e6ad/outputs";
 
-    public Outputs getPictureLabels(Image base64EncodePicture) throws JsonProcessingException {
+    public Outputs getPictureLabels(InputsImage base64EncodePicture) throws JsonProcessingException {
         RestTemplate restTemplate =  new RestTemplate();
         String apiKey = System.getenv("API_KEY");
 
@@ -28,7 +28,7 @@ public class ClarifaiApiService {
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         httpHeaders.set("Authorization", "Key " + apiKey);
 
-        Data data = new Data();
+        InputsData data = new InputsData();
         data.setImage(base64EncodePicture);
 
         InputsItem inputsItem = new InputsItem();

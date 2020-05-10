@@ -2,15 +2,15 @@ package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generate
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Input{
+public class OutputsInput {
 
 	@JsonProperty("data")
-	private Data data;
+	private OutputsData data;
 
 	@JsonProperty("id")
 	private String id;
 
-	public Data getData(){
+	public OutputsData getData(){
 		return data;
 	}
 

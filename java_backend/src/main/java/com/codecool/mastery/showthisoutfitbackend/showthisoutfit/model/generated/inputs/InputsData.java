@@ -2,16 +2,16 @@ package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generate
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Data{
+public class InputsData {
 
 	@JsonProperty("image")
-	private Image image;
+	private InputsImage image;
 
-	public Image getImage(){
+	public InputsImage getImage(){
 		return image;
 	}
 
-	public void setImage(Image image) {
+	public void setImage(InputsImage image) {
 		this.image = image;
 	}
 }
