@@ -5,10 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class OutputsItem{
 
 	@JsonProperty("input")
-	private Input input;
+	private OutputsInput input;
 
 	@JsonProperty("data")
-	private Data data;
+	private OutputsData data;
 
 	@JsonProperty("created_at")
 	private String createdAt;
@@ -22,11 +22,11 @@ public class OutputsItem{
 	@JsonProperty("status")
 	private Status status;
 
-	public Input getInput(){
+	public OutputsInput getInput(){
 		return input;
 	}
 
-	public Data getData(){
+	public OutputsData getData(){
 		return data;
 	}
 

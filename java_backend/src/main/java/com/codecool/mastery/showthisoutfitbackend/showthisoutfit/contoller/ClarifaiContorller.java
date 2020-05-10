@@ -1,6 +1,6 @@
 package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.contoller;
 
-import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.inputs.Image;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.inputs.InputsImage;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.outputs.Outputs;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.service.ClarifaiApiService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -16,7 +16,7 @@ public class ClarifaiContorller {
     private ClarifaiApiService clarifaiApiService;
 
     @PostMapping("/picture/upload")
-    public Outputs getUploadImageLabels(@RequestBody Image base64Image) throws JsonProcessingException {
+    public Outputs getUploadImageLabels(@RequestBody InputsImage base64Image) throws JsonProcessingException {
         return clarifaiApiService.getPictureLabels(base64Image);
     }
 

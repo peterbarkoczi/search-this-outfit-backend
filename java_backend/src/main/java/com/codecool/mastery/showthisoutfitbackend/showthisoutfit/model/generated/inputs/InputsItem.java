@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class InputsItem{
 
 	@JsonProperty("data")
-	private Data data;
+	private InputsData data;
 
-	public Data getData(){
+	public InputsData getData(){
 		return data;
 	}
 
-	public void setData(Data data) {
+	public void setData(InputsData data) {
 		this.data = data;
 	}
 }

@@ -2,7 +2,7 @@ package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generate
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Image{
+public class OutputsImage {
 
 	@JsonProperty("base64")
 	private String base64;

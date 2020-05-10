@@ -8,7 +8,7 @@ public class RegionsItem{
 	private RegionInfo regionInfo;
 
 	@JsonProperty("data")
-	private Data data;
+	private OutputsData data;
 
 	@JsonProperty("id")
 	private String id;
@@ -17,7 +17,7 @@ public class RegionsItem{
 		return regionInfo;
 	}
 
-	public Data getData(){
+	public OutputsData getData(){
 		return data;
 	}
 
