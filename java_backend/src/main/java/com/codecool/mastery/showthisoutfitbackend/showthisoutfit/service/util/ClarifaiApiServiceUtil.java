@@ -1,0 +1,67 @@
+package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.service.util;
+
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.Label;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.inputs.Inputs;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.inputs.InputsData;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.inputs.InputsImage;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.inputs.InputsItem;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.outputs.*;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
+
+import java.util.*;
+
+@Component
+public class ClarifaiApiServiceUtil {
+
+    private static final String API_KEY = System.getenv("API_KEY");
+
+    public HttpHeaders getCommonHeaders() {
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        httpHeaders.set("Authorization", "Key " + API_KEY);
+
+        return httpHeaders;
+    }
+
+    public Inputs createApiInputs(InputsImage base64EncodePicture) {
+        InputsData data = new InputsData();
+        data.setImage(base64EncodePicture);
+
+        InputsItem inputsItem = new InputsItem();
+        inputsItem.setData(data);
+
+        Inputs inputs = new Inputs();
+        inputs.setInputs(Collections.singletonList(inputsItem));
+
+        return inputs;
+    }
+
+    public Set<Label> createLabelSetFromOutputs(Outputs outputs) {
+        Set<Label> labels = new HashSet<>();
+
+        List<OutputsItem> outputsItems = outputs.getOutputs();
+        for (OutputsItem item : outputsItems) {
+            OutputsData itemData = item.getData();
+            List<RegionsItem> regions = itemData.getRegions();
+            for (RegionsItem regionsItem : regions) {
+                RegionInfo regionInfo = regionsItem.getRegionInfo();
+                BoundingBox boundingBox = regionInfo.getBoundingBox();
+
+                OutputsData regionsItemData = regionsItem.getData();
+                List<ConceptsItem> concepts = regionsItemData.getConcepts();
+
+                List<String> itemNames = new LinkedList<>();
+                concepts.forEach(conceptsItem -> itemNames.add(conceptsItem.getName()));
+
+                Label label = new Label(itemNames, boundingBox);
+                labels.add(label);
+            }
+        }
+
+        return labels;
+    }
+
+}
