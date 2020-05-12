@@ -5,12 +5,14 @@ import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.service.ClarifaiApiService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Set;
 
+@CrossOrigin
 @RestController
 public class ClarifaiContorller {
 
