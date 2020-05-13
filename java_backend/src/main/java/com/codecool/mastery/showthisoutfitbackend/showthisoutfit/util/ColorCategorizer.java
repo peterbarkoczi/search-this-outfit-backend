@@ -27,4 +27,21 @@ public class ColorCategorizer {
         return colors;
     }
 
+    public String getCategory(String mainColor) {
+        mainColor = mainColor.trim();
+        if (mainColor.isEmpty()) {
+            throw new NullPointerException("The color to be categorized is empty.");
+        }
+
+        for (Map.Entry<String, Set<String>> colors : colorsCatalog.entrySet()) {
+            for (String subColorName : colors.getValue()) {
+                if (mainColor.contains(subColorName)) {
+                    return colors.getKey();
+                }
+
+            }
+        }
+        return mainColor;
+    }
+
 }
