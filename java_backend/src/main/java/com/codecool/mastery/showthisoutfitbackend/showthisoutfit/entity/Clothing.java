@@ -39,10 +39,7 @@ public class Clothing {
     @EqualsAndHashCode.Exclude
     private List<ImageLink> images = new LinkedList<>();
 
-    @Builder.Default
-    @OneToMany(mappedBy = "clothing",cascade = CascadeType.MERGE)
-    @EqualsAndHashCode.Exclude
-    private Set<Color> colors = new HashSet<>();
+    private String color;
 
     private String catalogId;
     private String productDetails;
@@ -50,11 +47,6 @@ public class Clothing {
     public void addImage(ImageLink imageLink) {
         imageLink.setClothing(this);
         this.images.add(imageLink);
-    }
-
-    public void addColor(Color color) {
-        color.setClothing(this);
-        this.colors.add(color);
     }
 
 }
