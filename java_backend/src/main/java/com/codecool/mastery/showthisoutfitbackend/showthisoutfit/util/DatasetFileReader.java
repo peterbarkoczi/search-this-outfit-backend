@@ -11,7 +11,13 @@ import java.util.List;
 @Slf4j
 public class DatasetFileReader {
 
-    public List<String> readFile(String filePath) {
+    public List<String> readFile(String filePath) throws Exception {
+        filePath = filePath.trim();
+
+        if (filePath.isEmpty()) {
+            throw new Exception("File path is empty");
+        }
+
         List<String> result = new LinkedList<>();
         String row = "";
         int headerRow = 1;
@@ -27,11 +33,10 @@ public class DatasetFileReader {
             }
 
         } catch (FileNotFoundException e) {
-            log.error("File path not found: " + filePath + ", " + e);
-        } catch (IOException e) {
-            log.error("File reading failed: " + e);
+            String errorMessage = "File path not found: " + filePath + ", " + e;
+            log.error(errorMessage);
+            throw new FileNotFoundException(errorMessage);
         }
-
         return result;
     }
 
