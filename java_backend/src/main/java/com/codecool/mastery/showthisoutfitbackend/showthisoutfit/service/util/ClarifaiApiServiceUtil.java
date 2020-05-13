@@ -1,11 +1,11 @@
 package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.service.util;
 
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.Label;
-import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.inputs.Inputs;
-import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.inputs.InputsData;
-import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.inputs.InputsImage;
-import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.inputs.InputsItem;
-import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.outputs.*;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.Inputs;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.InputsData;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.InputsImage;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.InputsItem;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.outputs.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
