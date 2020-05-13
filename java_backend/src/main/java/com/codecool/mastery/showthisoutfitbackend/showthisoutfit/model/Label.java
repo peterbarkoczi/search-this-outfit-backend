@@ -1,4 +1,4 @@
-package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated;
+package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model;
 
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.outputs.BoundingBox;
 import lombok.AllArgsConstructor;
