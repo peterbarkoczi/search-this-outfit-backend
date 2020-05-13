@@ -1,4 +1,4 @@
-package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.inputs;
+package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs;
 
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -1,9 +1,9 @@
 package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.service;
 
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.Label;
-import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.inputs.InputsImage;
-import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.outputs.Outputs;
-import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.inputs.Inputs;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.InputsImage;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.outputs.Outputs;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.Inputs;
 
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.service.util.ClarifaiApiServiceUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
