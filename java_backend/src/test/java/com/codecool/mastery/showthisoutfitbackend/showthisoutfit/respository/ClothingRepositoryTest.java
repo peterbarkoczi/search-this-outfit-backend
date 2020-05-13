@@ -1,7 +1,6 @@
 package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.respository;
 
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.entity.Clothing;
-import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.entity.Color;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.entity.ImageLink;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +17,6 @@ public class ClothingRepositoryTest {
     private ClothingRepository clothingRepository;
 
     @Autowired
-    private ColorRepository colorRepository;
-
-    @Autowired
     private ImageLinkRepository imageLinkRepository;
 
     @Test
@@ -30,14 +26,6 @@ public class ClothingRepositoryTest {
                 .fashionDaysProductName("Big test")
                 .priceHUF(120L)
                 .build();
-
-        Set<Color> colors = new HashSet<>();
-        colors.add(Color.builder().color("green").clothing(clothing).build());
-        colors.add(Color.builder().color("blue").clothing(clothing).build());
-        colors.add(Color.builder().color("pink").clothing(clothing).build());
-
-        clothing.setColors(colors);
-        colorRepository.saveAll(colors);
 
         List<ImageLink> imageLinks = new LinkedList<>();
         imageLinks.add(ImageLink.builder().url("test1.com").clothing(clothing).build());
@@ -49,8 +37,6 @@ public class ClothingRepositoryTest {
 
         clothingRepository.save(clothing);
         List<Clothing> all = clothingRepository.findAll();
-
-        System.out.println(all);
 
         assertThat(all).hasSize(1)
                 .allMatch(clothing1 -> clothing1.equals(clothing));
