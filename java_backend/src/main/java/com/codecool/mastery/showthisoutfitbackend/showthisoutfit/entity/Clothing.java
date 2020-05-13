@@ -3,10 +3,8 @@ package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -40,8 +38,9 @@ public class Clothing {
     private List<ImageLink> images = new LinkedList<>();
 
     private String color;
-
     private String catalogId;
+
+    @Lob
     private String productDetails;
 
     public void addImage(ImageLink imageLink) {
