@@ -1,7 +1,7 @@
 package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.contoller;
 
-import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.Label;
-import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.inputs.InputsImage;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.Label;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.InputsImage;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.service.ClarifaiApiService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
