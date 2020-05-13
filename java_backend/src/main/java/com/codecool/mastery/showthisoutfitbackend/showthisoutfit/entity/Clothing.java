@@ -3,10 +3,8 @@ package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -39,22 +37,15 @@ public class Clothing {
     @EqualsAndHashCode.Exclude
     private List<ImageLink> images = new LinkedList<>();
 
-    @Builder.Default
-    @OneToMany(mappedBy = "clothing",cascade = CascadeType.MERGE)
-    @EqualsAndHashCode.Exclude
-    private Set<Color> colors = new HashSet<>();
-
+    private String color;
     private String catalogId;
+
+    @Lob
     private String productDetails;
 
     public void addImage(ImageLink imageLink) {
         imageLink.setClothing(this);
         this.images.add(imageLink);
-    }
-
-    public void addColor(Color color) {
-        color.setClothing(this);
-        this.colors.add(color);
     }
 
 }
