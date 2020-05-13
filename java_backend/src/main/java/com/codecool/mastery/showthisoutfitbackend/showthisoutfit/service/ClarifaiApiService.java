@@ -1,6 +1,6 @@
 package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.service;
 
-import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.Label;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.Label;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.InputsImage;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.outputs.Outputs;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.Inputs;
