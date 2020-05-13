@@ -1,4 +1,4 @@
-package com.codecool.mastery.showthisoutfitbackend.showthisoutfit;
+package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.util;
 
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.util.DatasetFileReader;
 import org.junit.jupiter.api.BeforeEach;
