@@ -42,5 +42,50 @@ public class ClothingRepositoryTest {
                 .allMatch(clothing1 -> clothing1.equals(clothing));
     }
 
+    @Test
+    public void findTop20ByClassificationENGTestReturnTop20ClothsWithChosenLabelName() {
+        String clothClassificationENG = "pants";
+
+        for (int piece = 0; piece < 30; piece++) {
+            clothingRepository.save(Clothing.builder().classificationENG(clothClassificationENG).build());
+        }
+
+        Set<Clothing> clothingSet = clothingRepository.findTop20ByClassificationENG(clothClassificationENG);
+
+        assertThat(clothingSet)
+                .hasSize(20)
+                .allMatch(clothing1 -> clothClassificationENG.equals(clothing1.getClassificationENG()));
+    }
+
+    @Test
+    public void findTop20ByClassificationENGTestEmptyString() {
+        String clothClassificationENG = "pants";
+
+        for (int piece = 0; piece < 30; piece++) {
+            clothingRepository.save(Clothing.builder().classificationENG(clothClassificationENG).build());
+        }
+
+        Set<Clothing> clothingSet = clothingRepository.findTop20ByClassificationENG("");
+
+        assertThat(clothingSet)
+                .hasSize(0);
+
+    }
+
+    @Test
+    public void findTop20ByClassificationENGTestWhiteSpaceString() {
+        String clothClassificationENG = "pants";
+
+        for (int piece = 0; piece < 30; piece++) {
+            clothingRepository.save(Clothing.builder().classificationENG(clothClassificationENG).build());
+        }
+
+        Set<Clothing> clothingSet = clothingRepository.findTop20ByClassificationENG(" ");
+
+        assertThat(clothingSet)
+                .hasSize(0);
+
+    }
+
 
 }
