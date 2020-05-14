@@ -2,6 +2,7 @@ package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.respository;
 
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.entity.Clothing;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.entity.ImageLink;
+import com.google.common.collect.Sets;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -85,6 +86,21 @@ public class ClothingRepositoryTest {
         assertThat(clothingSet)
                 .hasSize(0);
 
+    }
+
+    @Test
+    public void getAllClassificationENGTest() {
+        Set<String> clothsClasses = Sets.newHashSet("pants", "dress", "top");
+
+        for (String clothClass : clothsClasses) {
+            clothingRepository.save(
+                    Clothing.builder()
+                            .classificationENG(clothClass)
+                            .build());
+        }
+
+        Set<String> allClassificationENG = clothingRepository.getAllClassificationENG();
+        assertThat(clothsClasses.equals(allClassificationENG));
     }
 
 
