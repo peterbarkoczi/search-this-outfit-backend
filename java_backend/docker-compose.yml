@@ -1,4 +1,6 @@
-frontend:
+backend:
   image: backend:latest
+  environment:
+    - API_KEY=2594914d2f734dacaf3087503148c5d1
   ports:
-    - 8080:8080
+    - 3033:8080
