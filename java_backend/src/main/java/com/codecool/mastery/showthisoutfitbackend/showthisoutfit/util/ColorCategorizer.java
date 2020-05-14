@@ -44,4 +44,8 @@ public class ColorCategorizer {
         return mainColor;
     }
 
+    public List<String> getMainColors() {
+        return new ArrayList<>(colorsCatalog.keySet());
+    }
+
 }

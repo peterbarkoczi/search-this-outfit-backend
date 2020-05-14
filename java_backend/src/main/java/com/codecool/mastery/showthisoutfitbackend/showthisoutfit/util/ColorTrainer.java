@@ -22,4 +22,7 @@ public class ColorTrainer {
         this.clothsClasses = clothingRepository.getAllClassificationENG();
     }
 
+    public Set<Clothing> getFirst10ClothByClassificationAndColor() {
+        return clothingRepository.findTop10ByClassificationENGAndColor("dress", "blue");
+    }
 }
