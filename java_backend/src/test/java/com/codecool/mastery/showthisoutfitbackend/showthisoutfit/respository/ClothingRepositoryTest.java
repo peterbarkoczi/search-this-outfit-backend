@@ -103,5 +103,28 @@ public class ClothingRepositoryTest {
         assertThat(clothsClasses.equals(allClassificationENG));
     }
 
+    @Test
+    public void findTop10ByClassificationENGAndColorTest() {
+        String clothClass = "pants";
+        String color = "white";
+
+        for (int i = 0; i < 20; i++) {
+            clothingRepository.save(
+                    Clothing.builder()
+                            .classificationENG(clothClass)
+                            .color(color)
+                            .build());
+        }
+
+        Set<Clothing> find = clothingRepository.findTop10ByClassificationENGAndColor(clothClass, color);
+
+        assertThat(find)
+                .hasSize(10)
+                .allMatch(clothing ->
+                        clothClass.equals(clothing.getClassificationENG())
+                                &&  color.equals(clothing.getColor()));
+
+    }
+
 
 }
