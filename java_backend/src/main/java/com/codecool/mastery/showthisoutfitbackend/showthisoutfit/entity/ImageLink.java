@@ -1,5 +1,6 @@
 package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class ImageLink {
 
     @ToString.Exclude
     @ManyToOne(cascade = CascadeType.MERGE)
+    @JsonIgnore
     private Clothing clothing;
 
 }
