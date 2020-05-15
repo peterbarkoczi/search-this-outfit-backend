@@ -15,7 +15,7 @@ public class ColorCategorizer {
 
     private Map<String, Set<String>> createColorsCatalog() {
         Map<String, Set<String>> colors = new HashMap<>();
-        colors.put("mutliple", Sets.newHashSet("mintás", "többszínű", "színes"));
+        colors.put("multiple", Sets.newHashSet("mintás", "többszínű", "színes"));
         colors.put("black", Sets.newHashSet("fekete"));
         colors.put("white", Sets.newHashSet("szürke", "ezüst", "csont", "fehér"));
         colors.put("green", Sets.newHashSet("zöld", "khaki"));
