@@ -9,25 +9,25 @@ class ColorCategorizerTest {
     private ColorCategorizer colorCategorizer = new ColorCategorizer();
 
     @Test
-    public void getCategoryTestValidInput() {
-        assertThat("red".equals(colorCategorizer.getCategory("piros")));
+    public void getColorGroupNameFromColorCatalogTestValidInput() {
+        assertThat("Gray").isEqualTo(colorCategorizer.getColorGroupNameFromColorCatalog("fekete"));
     }
 
     @Test
-    public void getCategoryTestValidInputButNotInTheCategory() {
-        assertThat("else".equals(colorCategorizer.getCategory("körte")));
+    public void getColorGroupNameFromColorCatalogTestValidInputButNotInTheCategory() {
+        assertThat("Unknown").isEqualTo(colorCategorizer.getColorGroupNameFromColorCatalog("something"));
     }
 
     @Test
-    public void getCategoryTestInvalidInputEmptyString() {
+    public void getColorGroupNameFromColorCatalogyTestInvalidInputEmptyString() {
         assertThatExceptionOfType(NullPointerException.class)
-                .isThrownBy(() -> colorCategorizer.getCategory(""));
+                .isThrownBy(() -> colorCategorizer.getColorGroupNameFromColorCatalog(""));
     }
 
     @Test
-    public void getCategoryTestInvalidInputWhiteSpace() {
+    public void getColorGroupNameFromColorCatalogTestInvalidInputWhiteSpace() {
         assertThatExceptionOfType(NullPointerException.class)
-                .isThrownBy(() -> colorCategorizer.getCategory(" "));
+                .isThrownBy(() -> colorCategorizer.getColorGroupNameFromColorCatalog(" "));
     }
 
 }
