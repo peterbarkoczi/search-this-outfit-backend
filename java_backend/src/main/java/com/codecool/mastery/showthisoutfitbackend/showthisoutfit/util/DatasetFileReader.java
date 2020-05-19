@@ -11,11 +11,11 @@ import java.util.List;
 @Slf4j
 public class DatasetFileReader {
 
-    public List<String> readFile(String filePath) throws Exception {
+    public List<String> readFile(String filePath) throws IOException {
         filePath = filePath.trim();
 
         if (filePath.isEmpty()) {
-            throw new Exception("File path is empty");
+            throw new FileNotFoundException("File path is empty");
         }
 
         List<String> result = new LinkedList<>();
