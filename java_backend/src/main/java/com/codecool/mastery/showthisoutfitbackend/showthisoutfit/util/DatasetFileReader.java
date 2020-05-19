@@ -31,11 +31,8 @@ public class DatasetFileReader {
                 }
                 result.add(row);
             }
-
         } catch (FileNotFoundException e) {
-            String errorMessage = "File path not found: " + filePath + ", " + e;
-            log.error(errorMessage);
-            throw new FileNotFoundException(errorMessage);
+            throw new FileNotFoundException("File path not found: " + filePath + ", " + e);
         }
         return result;
     }
