@@ -37,4 +37,9 @@ class ColorCategorizerTest {
                 .isThrownBy(() -> colorCategorizer.getColorGroupNameFromColorCatalog(" "));
     }
 
+    @Test
+    public void colorsCatalogTest() {
+        assertThat(colorCategorizer.getColorsCatalog()).hasSizeGreaterThan(0);
+    }
+
 }
