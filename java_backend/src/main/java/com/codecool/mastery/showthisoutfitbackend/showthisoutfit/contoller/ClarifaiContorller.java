@@ -21,7 +21,7 @@ public class ClarifaiContorller {
 
     @PostMapping("/picture/upload")
     public Set<Label> getUploadImageLabels(@RequestBody InputsImage base64Image) throws JsonProcessingException {
-        return clarifaiApiService.getPictureLabels(base64Image);
+        return clarifaiApiService.getImageApparelLabels(base64Image);
     }
 
 }

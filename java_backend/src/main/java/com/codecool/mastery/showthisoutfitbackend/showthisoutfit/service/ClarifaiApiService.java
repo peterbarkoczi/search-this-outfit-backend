@@ -25,7 +25,7 @@ public class ClarifaiApiService {
     private static final String CLARIFAI_APPAREL_DETECTION = "https://api.clarifai.com/v2/models/72c523807f93e18b431676fb9a58e6ad/outputs";
     private static final String CLARIFAI_COLOR_DETECTION = "https://api.clarifai.com/v2/models/eeed0b6733a644cea07cf4c60f87ebb7/outputs";
 
-    public Set<Label> getPictureLabels(InputsImage base64EncodePicture) {
+    public Set<Label> getImageApparelLabels(InputsImage base64EncodePicture) {
         RestTemplate restTemplate =  new RestTemplate();
 
         HttpHeaders commonHeaders = apiServiceUtil.getCommonHeaders();
