@@ -9,4 +9,6 @@ public interface ClothingRepository extends JpaRepository<Clothing, Long> {
 
     Set<Clothing> findTop20ByClassificationENG(String classificationENG);
 
+    Set<Clothing> findTop20ByClassificationENGAndColor(String classificationENG, String color);
+
 }
