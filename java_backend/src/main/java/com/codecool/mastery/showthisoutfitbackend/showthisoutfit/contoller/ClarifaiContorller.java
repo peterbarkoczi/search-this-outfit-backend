@@ -3,7 +3,6 @@ package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.contoller;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.Label;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.InputsImage;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.service.ClarifaiApiService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +19,7 @@ public class ClarifaiContorller {
     private ClarifaiApiService clarifaiApiService;
 
     @PostMapping("/picture/upload")
-    public Set<Label> getUploadImageLabels(@RequestBody InputsImage base64Image) throws JsonProcessingException {
+    public Set<Label> getUploadImageLabels(@RequestBody InputsImage base64Image) {
         return clarifaiApiService.getImageApparelLabels(base64Image);
     }
 
