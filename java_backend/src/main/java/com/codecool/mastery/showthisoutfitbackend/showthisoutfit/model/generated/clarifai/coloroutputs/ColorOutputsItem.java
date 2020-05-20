@@ -2,7 +2,7 @@ package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generate
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class OutputsItem{
+public class ColorOutputsItem {
 
 	@JsonProperty("input")
 	private Input input;

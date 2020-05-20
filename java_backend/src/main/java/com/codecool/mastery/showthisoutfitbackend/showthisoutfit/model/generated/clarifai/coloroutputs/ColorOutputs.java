@@ -6,12 +6,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class ColorOutputs {
 
 	@JsonProperty("outputs")
-	private List<OutputsItem> outputs;
+	private List<ColorOutputsItem> outputs;
 
 	@JsonProperty("status")
 	private Status status;
 
-	public List<OutputsItem> getOutputs(){
+	public List<ColorOutputsItem> getOutputs(){
 		return outputs;
 	}
 
