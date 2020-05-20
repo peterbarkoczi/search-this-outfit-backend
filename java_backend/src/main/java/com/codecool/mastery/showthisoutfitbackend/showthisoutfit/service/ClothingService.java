@@ -13,6 +13,7 @@ public class ClothingService {
     @Autowired
     private ClothingRepository clothingRepository;
 
+
     public Set<Clothing> getTop20ClothingByChosenLabelName(String labelName) {
         return clothingRepository.findTop20ByClassificationENG(labelName);
     }

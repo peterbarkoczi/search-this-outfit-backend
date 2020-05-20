@@ -1,6 +1,7 @@
 package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.service.util;
 
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.Label;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.coloroutputs.*;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.Inputs;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.InputsData;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.InputsImage;
@@ -62,6 +63,25 @@ public class ClarifaiApiServiceUtil {
         }
 
         return labels;
+    }
+
+    public String getHighestValueColorFromColorOutputs(ColorOutputs colorOutputs) {
+        ColorsItem highestValueColor = new ColorsItem();
+
+        List<ColorOutputsItem> outputsItems = colorOutputs.getOutputs();
+        for (ColorOutputsItem colorOutputsItem : outputsItems) {
+            Data data = colorOutputsItem.getData();
+            List<ColorsItem> colorList = data.getColors();
+            for (ColorsItem colorsItem : colorList) {
+                if (colorsItem.getValue() > highestValueColor.getValue()) {
+                    highestValueColor = colorsItem;
+                }
+            }
+        }
+
+        W3c highestValueColorW3c = highestValueColor.getW3c();
+
+        return highestValueColorW3c.getName();
     }
 
 }

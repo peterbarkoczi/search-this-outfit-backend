@@ -1,6 +1,7 @@
 package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.service;
 
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.Label;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.coloroutputs.ColorOutputs;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.Inputs;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.InputsImage;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.appareloutputs.Outputs;
@@ -22,12 +23,12 @@ public class ClarifaiApiService {
     @Autowired
     private ClarifaiApiServiceUtil apiServiceUtil;
 
+    private RestTemplate restTemplate =  new RestTemplate();
+
     private static final String CLARIFAI_APPAREL_DETECTION = "https://api.clarifai.com/v2/models/72c523807f93e18b431676fb9a58e6ad/outputs";
     private static final String CLARIFAI_COLOR_DETECTION = "https://api.clarifai.com/v2/models/eeed0b6733a644cea07cf4c60f87ebb7/outputs";
 
     public Set<Label> getImageApparelLabels(InputsImage base64EncodePicture) {
-        RestTemplate restTemplate =  new RestTemplate();
-
         HttpHeaders commonHeaders = apiServiceUtil.getCommonHeaders();
         Inputs inputs = apiServiceUtil.createApiInputs(base64EncodePicture);
         HttpEntity<Object> requestEntity = new HttpEntity<>(inputs, commonHeaders);
@@ -40,6 +41,21 @@ public class ClarifaiApiService {
                         Outputs.class);
 
         return apiServiceUtil.createLabelSetFromOutputs(Objects.requireNonNull(outputsResponseEntity.getBody()));
+    }
+
+    public String getDominantColor(InputsImage base64EncodePicture) {
+        HttpHeaders commonHeaders = apiServiceUtil.getCommonHeaders();
+        Inputs inputs = apiServiceUtil.createApiInputs(base64EncodePicture);
+        HttpEntity<Object> requestEntity = new HttpEntity<>(inputs, commonHeaders);
+
+        ResponseEntity<ColorOutputs> outputsResponseEntity =
+                restTemplate.exchange(
+                        CLARIFAI_COLOR_DETECTION,
+                        HttpMethod.POST,
+                        requestEntity,
+                        ColorOutputs.class);
+
+        return apiServiceUtil.getHighestValueColorFromColorOutputs(Objects.requireNonNull(outputsResponseEntity.getBody()));
     }
 
 }
