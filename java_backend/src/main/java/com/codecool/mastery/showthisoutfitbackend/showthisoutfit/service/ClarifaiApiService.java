@@ -43,7 +43,7 @@ public class ClarifaiApiService {
         return apiServiceUtil.createLabelSetFromOutputs(Objects.requireNonNull(outputsResponseEntity.getBody()));
     }
 
-    public String getDominantColor(InputsImage base64EncodePicture) {
+    public String getImageDominantColor(InputsImage base64EncodePicture) {
         HttpHeaders commonHeaders = apiServiceUtil.getCommonHeaders();
         Inputs inputs = apiServiceUtil.createApiInputs(base64EncodePicture);
         HttpEntity<Object> requestEntity = new HttpEntity<>(inputs, commonHeaders);
