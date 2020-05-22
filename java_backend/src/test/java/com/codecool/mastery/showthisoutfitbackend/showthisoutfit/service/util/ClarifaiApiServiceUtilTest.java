@@ -1,16 +1,17 @@
 package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.service.util;
 
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.Label;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.appareloutputs.*;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.Inputs;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.InputsData;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.InputsImage;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.InputsItem;
+import com.google.common.collect.Sets;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -46,8 +47,39 @@ class ClarifaiApiServiceUtilTest {
     }
 
     @Test
-    void createLabelSetFromOutputs() {
+    void createLabelSetFromOutputsTest() {
+        ConceptsItem conceptsItem = new ConceptsItem();
+        conceptsItem.setName("test");
 
+        OutputsData outputsData = new OutputsData();
+        outputsData.setConcepts(Arrays.asList(conceptsItem));
+
+        BoundingBox boundingBox = new BoundingBox();
+        boundingBox.setLeftCol(0.1);
+        boundingBox.setRightCol(0.2);
+        boundingBox.setTopRow(0.3);
+        boundingBox.setBottomRow(0.4);
+
+        RegionInfo regionInfo = new RegionInfo();
+        regionInfo.setBoundingBox(boundingBox);
+
+        RegionsItem regionsItem = new RegionsItem();
+        regionsItem.setData(outputsData);
+        regionsItem.setRegionInfo(regionInfo);
+
+        OutputsData data = new OutputsData();
+        data.setRegions(Arrays.asList(regionsItem));
+
+        OutputsItem outputsItem = new OutputsItem();
+        outputsItem.setData(data);
+
+        Outputs outputs = new Outputs();
+        outputs.setOutputs(Arrays.asList(outputsItem));
+
+        Label label = new Label(Arrays.asList("test"), boundingBox);
+        Set<Label> labels = Sets.newHashSet(label);
+
+        assertThat(labels).isEqualTo(util.createLabelSetFromOutputs(outputs));
     }
 
     @Test
