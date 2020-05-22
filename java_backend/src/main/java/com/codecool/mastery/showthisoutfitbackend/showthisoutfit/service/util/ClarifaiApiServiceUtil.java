@@ -66,7 +66,7 @@ public class ClarifaiApiServiceUtil {
     }
 
     public String getHighestValueColorFromColorOutputs(ColorOutputs colorOutputs) {
-        ColorsItem highestValueColor = new ColorsItem();
+        ColorsItem highestValueColor = ColorsItem.builder().build();
 
         List<ColorOutputsItem> outputsItems = colorOutputs.getOutputs();
         for (ColorOutputsItem colorOutputsItem : outputsItems) {

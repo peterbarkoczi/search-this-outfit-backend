@@ -2,7 +2,10 @@ package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generate
 
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 
+@Builder
+@lombok.Data
 public class Data{
 
 	@JsonProperty("colors")

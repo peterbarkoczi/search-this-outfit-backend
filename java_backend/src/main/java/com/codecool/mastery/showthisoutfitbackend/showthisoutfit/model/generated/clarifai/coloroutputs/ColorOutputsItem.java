@@ -2,6 +2,7 @@ package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generate
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@lombok.Data
 public class ColorOutputsItem {
 
 	@JsonProperty("input")
@@ -22,27 +23,4 @@ public class ColorOutputsItem {
 	@JsonProperty("status")
 	private Status status;
 
-	public Input getInput(){
-		return input;
-	}
-
-	public Data getData(){
-		return data;
-	}
-
-	public String getCreatedAt(){
-		return createdAt;
-	}
-
-	public Model getModel(){
-		return model;
-	}
-
-	public String getId(){
-		return id;
-	}
-
-	public Status getStatus(){
-		return status;
-	}
 }
