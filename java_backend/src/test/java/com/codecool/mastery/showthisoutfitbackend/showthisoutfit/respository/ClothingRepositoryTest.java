@@ -43,29 +43,39 @@ public class ClothingRepositoryTest {
     }
 
     @Test
-    public void findTop20ByClassificationENGTestReturnTop20ClothsWithChosenLabelName() {
+    public void findTop20ByClassificationENGTestReturnTop20ClothsWithChosenLabelNameAndColor() {
         String clothClassificationENG = "pants";
+        String color = "red";
 
         for (int piece = 0; piece < 30; piece++) {
-            clothingRepository.save(Clothing.builder().classificationENG(clothClassificationENG).build());
+            clothingRepository.save(Clothing.builder()
+                                            .classificationENG(clothClassificationENG)
+                                            .color(color)
+                                            .build());
         }
 
-        Set<Clothing> clothingSet = clothingRepository.findTop20ByClassificationENG(clothClassificationENG);
+        Set<Clothing> clothingSet = clothingRepository.findTop20ByClassificationENGAndColor(clothClassificationENG, color);
 
         assertThat(clothingSet)
                 .hasSize(20)
-                .allMatch(clothing1 -> clothClassificationENG.equals(clothing1.getClassificationENG()));
+                .allMatch(clothing1 ->
+                        clothClassificationENG.equals(clothing1.getClassificationENG())
+                                && color.equals(clothing1.getColor()));
     }
 
     @Test
-    public void findTop20ByClassificationENGTestEmptyString() {
+    public void findTop20ByClassificationENGAndColorTestEmptyString() {
         String clothClassificationENG = "pants";
+        String color = "red";
 
         for (int piece = 0; piece < 30; piece++) {
-            clothingRepository.save(Clothing.builder().classificationENG(clothClassificationENG).build());
+            clothingRepository.save(Clothing.builder()
+                    .classificationENG(clothClassificationENG)
+                    .color(color)
+                    .build());
         }
 
-        Set<Clothing> clothingSet = clothingRepository.findTop20ByClassificationENG("");
+        Set<Clothing> clothingSet = clothingRepository.findTop20ByClassificationENGAndColor("", "");
 
         assertThat(clothingSet)
                 .hasSize(0);
@@ -75,12 +85,16 @@ public class ClothingRepositoryTest {
     @Test
     public void findTop20ByClassificationENGTestWhiteSpaceString() {
         String clothClassificationENG = "pants";
+        String color = "red";
 
         for (int piece = 0; piece < 30; piece++) {
-            clothingRepository.save(Clothing.builder().classificationENG(clothClassificationENG).build());
+            clothingRepository.save(Clothing.builder()
+                    .classificationENG(clothClassificationENG)
+                    .color(color)
+                    .build());
         }
 
-        Set<Clothing> clothingSet = clothingRepository.findTop20ByClassificationENG(" ");
+        Set<Clothing> clothingSet = clothingRepository.findTop20ByClassificationENGAndColor(" ", color);
 
         assertThat(clothingSet)
                 .hasSize(0);
