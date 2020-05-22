@@ -2,6 +2,7 @@ package com.codecool.mastery.showthisoutfitbackend.showthisoutfit.service.util;
 
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.Label;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.appareloutputs.*;
+import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.coloroutputs.*;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.Inputs;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.InputsData;
 import com.codecool.mastery.showthisoutfitbackend.showthisoutfit.model.generated.clarifai.inputs.InputsImage;
@@ -35,7 +36,7 @@ class ClarifaiApiServiceUtilTest {
 
     @Test
     void createApiInputsTest() {
-        InputsImage testInputImage =  new InputsImage();
+        InputsImage testInputImage = new InputsImage();
         testInputImage.setBase64("base64");
         Inputs apiInputs = util.createApiInputs(testInputImage);
         List<InputsItem> inputs = apiInputs.getInputs();
@@ -83,6 +84,40 @@ class ClarifaiApiServiceUtilTest {
     }
 
     @Test
-    void getHighestValueColorFromColorOutputs() {
+    void getHighestValueColorFromColorOutputsTest() {
+        W3c color1 = new W3c();
+        color1.setName("tesColor1");
+        W3c color2 = new W3c();
+        color2.setName("tesColor2");
+        W3c color3 = new W3c();
+        color3.setName("tesColor3");
+
+        Data data = Data.builder()
+                .colors(Arrays.asList(
+                        ColorsItem
+                                .builder()
+                                .w3c(color1)
+                                .value(1)
+                                .build(),
+                        ColorsItem
+                                .builder()
+                                .w3c(color2)
+                                .value(2)
+                                .build(),
+                        ColorsItem
+                                .builder()
+                                .w3c(color3)
+                                .value(3)
+                                .build()
+                        )
+                )
+                .build();
+
+        ColorOutputsItem item = new ColorOutputsItem();
+        item.setData(data);
+        ColorOutputs colorOutputs = new ColorOutputs();
+        colorOutputs.setOutputs(Arrays.asList(item));
+
+        assertThat("tesColor3").isEqualTo(util.getHighestValueColorFromColorOutputs(colorOutputs));
     }
 }
