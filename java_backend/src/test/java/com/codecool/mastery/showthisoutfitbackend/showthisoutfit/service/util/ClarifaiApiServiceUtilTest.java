@@ -33,15 +33,21 @@ class ClarifaiApiServiceUtilTest {
     }
 
     @Test
-    void createApiInputs() {
+    void createApiInputsTest() {
         InputsImage testInputImage =  new InputsImage();
         testInputImage.setBase64("base64");
         Inputs apiInputs = util.createApiInputs(testInputImage);
-
+        List<InputsItem> inputs = apiInputs.getInputs();
+        assertThat(inputs.stream()
+                .map(InputsItem::getData)
+                .map(InputsData::getImage)
+                .map(InputsImage::getBase64))
+                .allMatch(s -> s.equals("base64"));
     }
 
     @Test
     void createLabelSetFromOutputs() {
+
     }
 
     @Test
